@@ -1,10 +1,54 @@
-# vaquita
+<!-- LOGO -->
+<h1>
+<p align="center">
+  <img src="assets/logo.png" alt="Logo" width="200">
+  <br>Vaquita
+</h1>
+  <p align="center">
+    Provider-agnostic plugin that scaffolds an opinionated agent-config directory for any project. Currently ships for Claude Code.
+    <br />
+    <a href="#about">About</a>
+    ·
+    <a href="#install">Install</a>
+    ·
+    <a href="#commands">Commands</a>
+    ·
+    <a href="CONTRIBUTING.md">Contributing</a>
+    ·
+    <a href="DEVELOPING.md">Developing</a>
+  </p>
+</p>
 
-Claude Code plugin that scaffolds an opinionated `.claude/` directory for any project.
+## About
 
-Run `/vaquita:init` inside Claude Code and get a complete setup: `CLAUDE.md`,
-rules, skills, agents, hooks, and a memory protocol — for universal plus
-TypeScript, Python, and Rust out of the box.
+vaquita is a plugin that scaffolds a complete agent-config directory in one
+command: top-level guide, rules, skills, agents, hooks, and a memory protocol
+— for universal plus TypeScript, Python, and Rust out of the box.
+
+The first version targets **Claude Code** (and generates a `.claude/`
+directory with `CLAUDE.md`). The design is deliberately provider-agnostic,
+so future versions will scaffold for other agent frameworks too — see the
+roadmap below.
+
+Run `/vaquita:init` inside Claude Code and you get a sensible, opinionated
+starting point that you can then tune to your project. `/vaquita:upgrade`
+diffs your local `.claude/` against the latest templates and applies updates
+selectively — it never auto-overwrites.
+
+vaquita also ships commands for authoring new skills, agents, and rules.
+Those commands interview you, draft a body using Claude's knowledge plus a
+scan of your project, show the draft, and write on explicit approval.
+
+## Install
+
+From any Claude Code session:
+
+```
+/plugin marketplace add /path/to/vaquita
+/plugin install vaquita@vaquita --scope user
+```
+
+Requires Node 18+ on your `PATH` (the plugin runs `npx tsx` on first use).
 
 ## Commands
 
@@ -16,87 +60,29 @@ TypeScript, Python, and Rust out of the box.
 | `/vaquita:create-agent` | Same, for subagents under `.claude/agents/`. |
 | `/vaquita:create-rule` | Same, for rules under `.claude/rules/<scope>/`. |
 
-## Install
+## Roadmap and Status
 
-### Persistent install (use from any project)
+vaquita is usable today and ships an opinionated scaffold for TypeScript,
+Python, and Rust. The rough plan for what's next:
 
-From any Claude Code session:
+|  #  | Step                                                                 | Status |
+| :-: | -------------------------------------------------------------------- | :----: |
+|  1  | Opinionated `.claude/` scaffold for TypeScript, Python, Rust         |   ✅   |
+|  2  | Template upgrade with diff-and-apply, never auto-overwrite           |   ✅   |
+|  3  | Interactive `create-skill` / `create-agent` / `create-rule`          |   ✅   |
+|  4  | MCP server scaffolding — common servers pre-configured               |   ❌   |
+|  5  | Choose language(s) at init — skip the ones you don't use             |   ❌   |
+|  6  | More languages out of the box (Go, Java, Ruby, Swift, …)             |   ❌   |
+|  7  | Multi-provider support (Codex, Gemini CLI, Cursor rules, …)          |   ❌   |
+|  8  | Interactive init wizard — pick skills/agents/rules a la carte        |   ❌   |
+|  9  | Publish to the Claude Code marketplace                               |   ❌   |
 
-```
-/plugin marketplace add /Users/Diego.Rojas/Documents/personal/opensource/vaquita
-/plugin install vaquita@vaquita --scope user
-```
+## Contributing and Developing
 
-Replace the path with wherever you cloned the repo. The `--scope user` flag
-makes the plugin available in every project you open.
-
-Claude Code copies the plugin to `~/.claude/plugins/cache/` on install, so
-edits to your source don't propagate automatically. To pick up updates after
-changes to the repo:
-
-```
-/plugin uninstall vaquita
-/plugin install vaquita@vaquita --scope user
-```
-
-Node 18+ must be on your `PATH` — the plugin runs `npx tsx` on first use,
-which fetches `tsx` once (a few seconds).
-
-### Local dev mode (for iterating on the plugin itself)
-
-```
-claude --plugin-dir /path/to/vaquita
-```
-
-Inside the session, `/reload-plugins` picks up edits to plugin files without
-restart. This only applies to the current session.
-
-## How it works
-
-- `/vaquita:init` and `/vaquita:upgrade` run `src/index.ts` via `npx tsx`.
-  The script handles all file I/O deterministically: template copy, variable
-  interpolation, settings merge, skip-existing, and upgrade diffing.
-- `/vaquita:create-skill`, `/vaquita:create-agent`, `/vaquita:create-rule` do
-  **not** call the script. Claude interviews you for metadata, drafts the body
-  using its own knowledge plus a scan of your project, shows the draft, and
-  writes the file only after you explicitly approve.
-
-See `openspec/changes/vaquita-v1/` for the full design spec.
-
-## Generated layout
-
-```
-.claude/
-  CLAUDE.md                          # with canonical Context & Memory Protocol
-  memory/
-    decisions.md                     # append-only
-    automemory/
-  rules/
-    universal/{no-early-stop,memory-protocol,ask-before-create}.md
-    typescript/style.md
-    python/style.md
-    rust/style.md
-  skills/
-    debug/SKILL.md
-    review/SKILL.md
-    planning/SKILL.md
-    typescript/testing/SKILL.md
-    python/testing/SKILL.md
-    rust/testing/SKILL.md
-  agents/
-    explorer.md
-    reviewer.md
-  commands/
-    create-skill.md
-    create-agent.md
-    create-rule.md
-  hooks/
-    hooks.json
-    scripts/
-      health-sentinel.sh             # validates hooks.json at SessionStart
-      bash-security.sh               # warns on dangerous bash at PreToolUse
-settings.json                        # autoMemoryDirectory key merged, never overwritten
-```
+If you have ideas, issues, or would like to contribute to vaquita through
+pull requests, please check out [CONTRIBUTING.md](CONTRIBUTING.md). Those who
+want to get involved with vaquita's development should also read
+[DEVELOPING.md](DEVELOPING.md) for more technical details.
 
 ## License
 

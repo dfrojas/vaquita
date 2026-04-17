@@ -1,7 +1,7 @@
 {
   "name": "vaquita",
   "version": "0.1.0",
-  "description": "Claude Code plugin that scaffolds an opinionated .claude/ directory",
+  "description": "Provider-agnostic plugin that scaffolds an opinionated agent-config directory. Currently ships for Claude Code.",
   "type": "module",
   "private": true,
   "engines": {
