@@ -28,5 +28,5 @@ triggers:
 ## Do not
 
 - Add coverage tooling or plugins (pytest-xdist, pytest-mock) unless asked.
-- Mock the module under test — mock its collaborators instead.
+- Mock the module under test. Mock its collaborators instead.
 - Use `assert` with side effects; assertions should be pure observations.

@@ -2,7 +2,7 @@
 name: python-style
 scope: python
 glob: "**/*.py"
-description: Python style defaults — type hints, dataclasses, no wildcard imports, narrow exceptions
+description: Python style defaults. Type hints, dataclasses, no wildcard imports, narrow exceptions
 ---
 
 # Python Style

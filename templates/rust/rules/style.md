@@ -2,7 +2,7 @@
 name: rust-style
 scope: rust
 glob: "**/*.rs"
-description: Rust style defaults — no unwrap in non-test code, clippy-clean, narrow error types, no untested unsafe
+description: Rust style defaults. No unwrap in non-test code, clippy-clean, narrow error types, no untested unsafe
 ---
 
 # Rust Style

@@ -356,7 +356,7 @@ async function buildUpgradePlan(
 
     const files = await walk(packRoot);
     for (const sourceAbs of files) {
-      // settings.json is not part of the upgrade diff surface — its merge
+      // settings.json is not part of the upgrade diff surface. Its merge
       // rule is fixed (narrow key merge only).
       if (
         pack === "universal" &&

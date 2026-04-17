@@ -57,4 +57,4 @@ user pick which files to update.
 - Do not edit `.claude/` files yourself. The script handles writes.
 - Do not apply files the user didn't explicitly accept. There is no "apply all."
 - If the user aborts midway, apply only what was accepted before the abort.
-- `settings.json` is deliberately excluded from the upgrade surface — its merge is narrow and handled only by `/vaquita:init`.
+- `settings.json` is deliberately excluded from the upgrade surface. Its merge is narrow and handled only by `/vaquita:init`.

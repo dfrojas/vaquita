@@ -27,5 +27,5 @@ triggers:
 ## Do not
 
 - Add test infra (coverage reporters, matchers) the user did not request.
-- Mock a real dependency just to make the test pass — that hides regressions.
+- Mock a real dependency just to make the test pass. That hides regressions.
 - Use `any` in test types. Tests are code too.

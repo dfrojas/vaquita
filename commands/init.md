@@ -32,4 +32,4 @@ Scaffold `.claude/` configuration for the current project.
 
 - Do not write any files yourself for this command. The script handles all writes.
 - If the script fails (non-zero exit), report the error verbatim and stop. Do not retry.
-- If `CLAUDE_PLUGIN_ROOT` is not set, the script will exit with a diagnostic — relay it.
+- If `CLAUDE_PLUGIN_ROOT` is not set, the script will exit with a diagnostic. Relay it.

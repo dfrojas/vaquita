@@ -22,18 +22,18 @@
 ## About
 
 vaquita is a plugin that scaffolds a complete agent-config directory in one
-command: top-level guide, rules, skills, agents, hooks, and a memory protocol
-— for universal plus TypeScript, Python, and Rust out of the box.
+command: top-level guide, rules, skills, agents, hooks, and a memory protocol,
+for universal plus TypeScript, Python, and Rust out of the box.
 
 The first version targets **Claude Code** (and generates a `.claude/`
 directory with `CLAUDE.md`). The design is deliberately provider-agnostic,
-so future versions will scaffold for other agent frameworks too — see the
+so future versions will scaffold for other agent frameworks too. See the
 roadmap below.
 
 Run `/vaquita:init` inside Claude Code and you get a sensible, opinionated
 starting point that you can then tune to your project. `/vaquita:upgrade`
 diffs your local `.claude/` against the latest templates and applies updates
-selectively — it never auto-overwrites.
+selectively. It never auto-overwrites.
 
 vaquita also ships commands for authoring new skills, agents, and rules.
 Those commands interview you, draft a body using Claude's knowledge plus a
@@ -70,11 +70,11 @@ Python, and Rust. The rough plan for what's next:
 |  1  | Opinionated `.claude/` scaffold for TypeScript, Python, Rust         |   ✅   |
 |  2  | Template upgrade with diff-and-apply, never auto-overwrite           |   ✅   |
 |  3  | Interactive `create-skill` / `create-agent` / `create-rule`          |   ✅   |
-|  4  | MCP server scaffolding — common servers pre-configured               |   ❌   |
-|  5  | Choose language(s) at init — skip the ones you don't use             |   ❌   |
+|  4  | MCP server scaffolding, common servers pre-configured                |   ❌   |
+|  5  | Choose language(s) at init, skip the ones you don't use              |   ❌   |
 |  6  | More languages out of the box (Go, Java, Ruby, Swift, …)             |   ❌   |
 |  7  | Multi-provider support (Codex, Gemini CLI, Cursor rules, …)          |   ❌   |
-|  8  | Interactive init wizard — pick skills/agents/rules a la carte        |   ❌   |
+|  8  | Interactive init wizard, pick skills/agents/rules a la carte         |   ❌   |
 |  9  | Publish to the Claude Code marketplace                               |   ❌   |
 
 ## Contributing and Developing

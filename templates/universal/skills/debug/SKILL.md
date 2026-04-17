@@ -14,12 +14,12 @@ Systematic diagnosis of a failing test, crash, or unexpected behavior.
 
 ## Flow
 
-1. **Reproduce** — Run the exact command or scenario that fails. Capture the full error output. Do not guess from description alone.
-2. **Isolate** — Narrow the failure to the smallest input, step, or code path that still reproduces it.
-3. **Hypothesize** — State one or two specific hypotheses about the cause. Rank by likelihood.
-4. **Test the top hypothesis** — Make a minimal observation (add a log, inspect state, check an assumption) that would confirm or rule it out.
-5. **Fix only the identified cause** — Do not refactor surrounding code. Do not add defensive checks for scenarios you did not observe.
-6. **Verify** — Re-run the original failing command. Confirm success. Run adjacent tests to catch regressions.
+1. **Reproduce**. Run the exact command or scenario that fails. Capture the full error output. Do not guess from description alone.
+2. **Isolate**. Narrow the failure to the smallest input, step, or code path that still reproduces it.
+3. **Hypothesize**. State one or two specific hypotheses about the cause. Rank by likelihood.
+4. **Test the top hypothesis**. Make a minimal observation (add a log, inspect state, check an assumption) that would confirm or rule it out.
+5. **Fix only the identified cause**. Do not refactor surrounding code. Do not add defensive checks for scenarios you did not observe.
+6. **Verify**. Re-run the original failing command. Confirm success. Run adjacent tests to catch regressions.
 
 ## Output
 

@@ -13,18 +13,18 @@ Create a new skill in `.claude/skills/<name>/SKILL.md`.
 
 Follow these four phases in order. Do not skip any.
 
-### Phase 1 — Interview
+### Phase 1. Interview
 
 Ask these questions **one at a time**. Wait for each answer before asking the next. Do not batch them.
 
-1. **Skill name** — kebab-case, short. (e.g., `rust-debugger`, `api-changelog`, `react-test-writer`)
-2. **Trigger phrases** — example user phrases that should activate this skill. Ask for 3–5.
-3. **Expected output shape** — what does the skill produce? A diagnosis, a file, a refactor plan, etc. One sentence.
-4. **Bundled resources** — does this skill need bundled scripts, reference docs, or templates alongside SKILL.md? If yes, ask which and let the user describe them. Default: none.
+1. **Skill name**, kebab-case, short. (e.g., `rust-debugger`, `api-changelog`, `react-test-writer`)
+2. **Trigger phrases**. Example user phrases that should activate this skill. Ask for 3–5.
+3. **Expected output shape**. What does the skill produce? A diagnosis, a file, a refactor plan, etc. One sentence.
+4. **Bundled resources**. Does this skill need bundled scripts, reference docs, or templates alongside SKILL.md? If yes, ask which and let the user describe them. Default: none.
 
 Do **not** ask the user to write the skill's instructions. The body is your job in Phase 3.
 
-### Phase 2 — Project context scan
+### Phase 2. Project context scan
 
 Before drafting, read files that will inform the skill body:
 
@@ -36,7 +36,7 @@ Keep the scan focused. Do not read the whole repo.
 
 If no files are relevant, skip this phase and note it in the draft presentation.
 
-### Phase 3 — Draft
+### Phase 3. Draft
 
 Produce the full SKILL.md body using:
 
@@ -49,7 +49,7 @@ Use this structure:
 ```markdown
 ---
 name: <skill-name>
-description: <when to trigger, what it produces — one sentence>
+description: <when to trigger, what it produces, one sentence>
 triggers:
   - "<phrase 1>"
   - "<phrase 2>"
@@ -76,7 +76,7 @@ triggers:
 
 **Present the full draft to the user.** Do not write to disk yet.
 
-### Phase 4 — Refine and write
+### Phase 4. Refine and write
 
 After showing the draft:
 

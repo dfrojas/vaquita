@@ -3,7 +3,7 @@
 # Validates .claude/hooks/hooks.json parses and every referenced script
 # exists and is executable. Prints a single status line. Always exits 0.
 #
-# Written to work on bash 3.2 (macOS default) — no mapfile, no readarray.
+# Written to work on bash 3.2 (macOS default). No mapfile, no readarray.
 
 set -u
 

@@ -18,7 +18,7 @@ and after state) is enormously helpful.
 
 Before writing code for a non-trivial change, please open an issue to
 discuss it. vaquita's templates encode specific opinions about how a
-`.claude/` directory should be structured — changes that alter those
+`.claude/` directory should be structured. Changes that alter those
 opinions need a conversation first.
 
 Small, uncontroversial contributions (typo fixes, clearer wording in a

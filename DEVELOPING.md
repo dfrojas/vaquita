@@ -1,6 +1,6 @@
 # Developing vaquita
 
-This document covers working on vaquita itself — running it from a local
+This document covers working on vaquita itself, running it from a local
 clone, iterating on plugin files, and understanding how the commands are
 wired up.
 

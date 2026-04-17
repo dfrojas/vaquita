@@ -2,7 +2,7 @@
 name: typescript-style
 scope: typescript
 glob: "**/*.{ts,tsx}"
-description: TypeScript style defaults — strict types, no any, named exports, narrow surface
+description: TypeScript style defaults. Strict types, no any, named exports, narrow surface
 ---
 
 # TypeScript Style

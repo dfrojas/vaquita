@@ -30,5 +30,5 @@ triggers:
 ## Do not
 
 - Add dev-dependencies (tokio-test, mockall) the user did not request.
-- Mark tests `#[ignore]` to make CI pass — diagnose and fix.
+- Mark tests `#[ignore]` to make CI pass. Diagnose and fix.
 - Use `cargo test` with no arguments for a focused fix; it runs the whole suite and wastes time.
