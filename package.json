@@ -1,0 +1,13 @@
+{
+  "name": "vaquita",
+  "version": "0.1.0",
+  "description": "Claude Code plugin that scaffolds an opinionated .claude/ directory",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "tsx": "^4.19.0"
+  }
+}

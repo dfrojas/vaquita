@@ -1,0 +1,11 @@
+{
+  "name": "vaquita",
+  "owner": { "name": "Diego Fernando Rojas" },
+  "plugins": [
+    {
+      "name": "vaquita",
+      "source": "./",
+      "description": "Scaffold opinionated .claude/ configuration for any project"
+    }
+  ]
+}
