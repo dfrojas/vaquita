@@ -1,6 +1,6 @@
 # {{PROJECT_NAME}}
 
-Project-specific guidance for Claude Code.
+{{PROJECT_DESCRIPTION}}
 
 ## Stack
 

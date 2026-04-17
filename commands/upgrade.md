@@ -13,7 +13,7 @@ user pick which files to update.
 1. Run the plan step via the Bash tool:
 
    ```
-   npx tsx "$CLAUDE_PLUGIN_ROOT/src/index.ts" upgrade plan
+   CLAUDE_PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT}" npx tsx "${CLAUDE_PLUGIN_ROOT}/src/index.ts" upgrade plan
    ```
 
    Output is JSON of the shape:
@@ -42,7 +42,7 @@ user pick which files to update.
 4. Once decisions are collected, apply the accepted files in one call:
 
    ```
-   npx tsx "$CLAUDE_PLUGIN_ROOT/src/index.ts" upgrade apply <path1> <path2> ...
+   CLAUDE_PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT}" npx tsx "${CLAUDE_PLUGIN_ROOT}/src/index.ts" upgrade apply <path1> <path2> ...
    ```
 
    Quote each path. If no files were accepted, skip this step.

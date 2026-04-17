@@ -77,7 +77,7 @@ async function walk(dir: string): Promise<string[]> {
  * to its destination path (absolute, under $TARGET).
  *
  * Rules:
- *   templates/universal/settings.json   -> <TARGET>/settings.json
+ *   templates/universal/settings.json   -> <TARGET>/.claude/settings.json
  *   templates/universal/<rest>          -> <TARGET>/.claude/<rest>
  *   templates/<lang>/<kind>/<rest>      -> <TARGET>/.claude/<kind>/<lang>/<rest>
  */
@@ -92,9 +92,6 @@ function mapTemplatePath(
   const inner = segs.slice(1);
 
   if (pack === "universal") {
-    if (inner.length === 1 && inner[0] === "settings.json") {
-      return path.join(targetRoot, "settings.json");
-    }
     return path.join(targetRoot, ".claude", ...inner);
   }
 
@@ -142,13 +139,19 @@ async function detectBuildCommand(targetRoot: string): Promise<string> {
     }
   }
   if (await exists(path.join(targetRoot, "Cargo.toml"))) return "cargo build";
-  // Python has no canonical build command; leave blank
+  const pyproject = await readFileOrNull(path.join(targetRoot, "pyproject.toml"));
+  if (pyproject && pyproject.includes("[tool.poetry]")) return "poetry build";
   return "";
 }
 
-async function buildVars(targetRoot: string): Promise<Record<string, string>> {
+async function buildVars(
+  targetRoot: string,
+  description?: string,
+): Promise<Record<string, string>> {
+  const trimmed = (description ?? "").trim();
   return {
     PROJECT_NAME: path.basename(targetRoot),
+    PROJECT_DESCRIPTION: trimmed || "Project-specific guidance for Claude Code.",
     STACK: "typescript, python, rust",
     TEST_CMD: await detectTestCommand(targetRoot),
     BUILD_CMD: await detectBuildCommand(targetRoot),
@@ -174,7 +177,7 @@ async function mergeSettings(
   templatesRoot: string,
   targetRoot: string,
 ): Promise<InitReport["settingsAction"]> {
-  const destPath = path.join(targetRoot, "settings.json");
+  const destPath = path.join(targetRoot, ".claude", "settings.json");
   const templatePath = path.join(templatesRoot, "universal", "settings.json");
 
   if (!(await exists(destPath))) {
@@ -194,16 +197,38 @@ async function mergeSettings(
     return "unchanged";
   }
 
-  if (parsed[SETTINGS_KEY] !== undefined) {
+  const templateRaw = await fs.readFile(templatePath, "utf8");
+  let templateParsed: Record<string, unknown>;
+  try {
+    templateParsed = JSON.parse(templateRaw);
+  } catch {
+    console.error(
+      `vaquita: template ${templatePath} is not valid JSON; skipping merge.`,
+    );
+    return "unchanged";
+  }
+
+  let changed = false;
+
+  if (parsed[SETTINGS_KEY] === undefined) {
+    parsed[SETTINGS_KEY] = SETTINGS_VALUE;
+    changed = true;
+  }
+
+  if (parsed.hooks === undefined && templateParsed.hooks !== undefined) {
+    parsed.hooks = templateParsed.hooks;
+    changed = true;
+  }
+
+  if (!changed) {
     return "already-set";
   }
 
-  parsed[SETTINGS_KEY] = SETTINGS_VALUE;
   await fs.writeFile(destPath, JSON.stringify(parsed, null, 2) + "\n");
   return "merged";
 }
 
-async function runInit(): Promise<void> {
+async function runInit(description?: string): Promise<void> {
   const pluginRoot = requirePluginRoot();
   const targetRoot = cwd();
   const templatesRoot = path.join(pluginRoot, "templates");
@@ -215,7 +240,7 @@ async function runInit(): Promise<void> {
     exit(1);
   }
 
-  const vars = await buildVars(targetRoot);
+  const vars = await buildVars(targetRoot, description);
   const report: InitReport = {
     written: [],
     skipped: [],
@@ -474,9 +499,21 @@ async function main(): Promise<void> {
   const cmd = args[0];
 
   switch (cmd) {
-    case "init":
-      await runInit();
+    case "init": {
+      const initArgs = args.slice(1);
+      let description: string | undefined;
+      for (let i = 0; i < initArgs.length; i++) {
+        const a = initArgs[i];
+        if (a === "--description" && i + 1 < initArgs.length) {
+          description = initArgs[i + 1];
+          i++;
+        } else if (a?.startsWith("--description=")) {
+          description = a.slice("--description=".length);
+        }
+      }
+      await runInit(description);
       return;
+    }
     case "upgrade": {
       const sub = args[1];
       if (sub === "plan") {
