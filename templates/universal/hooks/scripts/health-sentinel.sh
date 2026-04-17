@@ -1,28 +1,29 @@
 #!/usr/bin/env bash
 # vaquita health-sentinel
-# Validates .claude/hooks/hooks.json parses and every referenced script
-# exists and is executable. Prints a single status line. Always exits 0.
+# Validates .claude/settings.json parses and every hook command referenced
+# under .hooks exists and is executable. Prints a single status line.
+# Always exits 0.
 #
 # Written to work on bash 3.2 (macOS default). No mapfile, no readarray.
 
 set -u
 
-HOOKS_JSON=".claude/hooks/hooks.json"
+SETTINGS_JSON=".claude/settings.json"
 
-if [ ! -f "$HOOKS_JSON" ]; then
-  echo "vaquita-health: FAIL (hooks.json not found)"
+if [ ! -f "$SETTINGS_JSON" ]; then
+  echo "vaquita-health: FAIL (settings.json not found)"
   exit 0
 fi
 
-if ! python3 -c "import json,sys; json.load(open('$HOOKS_JSON'))" >/dev/null 2>&1; then
-  echo "vaquita-health: FAIL (hooks.json invalid JSON)"
+if ! python3 -c "import json,sys; json.load(open('$SETTINGS_JSON'))" >/dev/null 2>&1; then
+  echo "vaquita-health: FAIL (settings.json invalid JSON)"
   exit 0
 fi
 
-# Extract every script path referenced as a command in hooks.json.
+# Extract every script path referenced as a hook command under .hooks.
 SCRIPT_LIST="$(python3 -c "
 import json
-with open('$HOOKS_JSON') as f:
+with open('$SETTINGS_JSON') as f:
     data = json.load(f)
 hooks = data.get('hooks', {})
 for event in hooks.values():

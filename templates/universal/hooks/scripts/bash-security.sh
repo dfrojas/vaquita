@@ -28,28 +28,14 @@ warn() {
   printf 'vaquita-security: WARN (%s) -- command: %s\n' "$1" "$CMD" >&2
 }
 
+# Only the truly catastrophic, largely non-recoverable patterns. Everything
+# else is already covered by Claude Code's per-tool permission prompt.
 case "$CMD" in
   *"rm -rf /"*|*"rm -rf ~"*|*"rm -rf \$HOME"*)
     warn "rm -rf on root or home"
     ;;
-  *"rm -rf *"*|*"rm -rf ./*"*)
-    warn "rm -rf glob"
-    ;;
-  *"git push --force"*|*"git push -f"*)
-    case "$CMD" in
-      *" main"*|*" master"*|*":main"*|*":master"*)
-        warn "force push to main/master"
-        ;;
-      *)
-        warn "force push"
-        ;;
-    esac
-    ;;
   *"DROP DATABASE"*|*"DROP TABLE"*|*"drop database"*|*"drop table"*)
     warn "destructive SQL"
-    ;;
-  *"chmod -R 777 /"*|*"chmod -R 777 ~"*)
-    warn "world-writable on root or home"
     ;;
   *"mkfs"*)
     warn "filesystem format"
