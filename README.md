@@ -50,6 +50,30 @@ From any Claude Code session:
 
 Requires Node 18+ on your `PATH` (the plugin runs `npx tsx` on first use).
 
+## Memory convention
+
+Claude Code ships its own auto memory. It writes to your user scope
+under `~/.claude/`, outside the project, where you cannot version it,
+review it in a PR, or see what a teammate's agent recorded about their
+session.
+
+vaquita takes the opposite approach. Memory lives in two files inside
+`.claude/`:
+
+- `.claude/checkpoint.md` holds in-flight work. The agent writes to it
+  after each major step and reads it at session start. When the task
+  finishes, the file is deleted.
+- `.claude/memory/decisions.md` is an append-only log of non-obvious
+  decisions and workarounds. Never edited, never overwritten. New
+  entries go at the bottom.
+
+Both files live in the repo. Check them in, diff them, review them. If
+you want to know what the agent remembers, you read the files.
+
+The convention is enforced by a short protocol block in the generated
+`CLAUDE.md`. Change it, remove it, or replace it with your own. It is
+your file.
+
 ## Commands
 
 | Command | What it does |
