@@ -82,8 +82,9 @@ After showing the draft:
 
 - If the user requests edits, revise the draft and show the updated version.
 - Repeat until the user either approves explicitly ("looks good", "write it", "approve") or aborts.
-- On explicit approval: write the file to `.claude/skills/<skill-name>/SKILL.md`.
-- If bundled resources were requested in Phase 1, create them in the same directory.
+- On explicit approval: **immediately call the Write tool** to create `.claude/skills/<skill-name>/SKILL.md`. Do NOT print the draft again for copy-paste. Do NOT ask the user to save it themselves. Writing the file is the whole point of the command.
+- If bundled resources were requested in Phase 1, create them in the same directory with additional Write calls.
+- After writing, report the created path(s) in one short sentence.
 - On abort: write nothing.
 
 ## Example

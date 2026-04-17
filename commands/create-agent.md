@@ -72,7 +72,8 @@ tools:
 ### Phase 4. Refine and write
 
 - Apply user edits until approval or abort.
-- On approval: write `.claude/agents/<agent-name>.md`.
+- On approval: **immediately call the Write tool** to create `.claude/agents/<agent-name>.md`. Do NOT print the draft again for copy-paste. Do NOT ask the user to save it themselves. Writing the file is the whole point of the command.
+- After writing, report the created path in one short sentence.
 - On abort: write nothing.
 
 ## Example

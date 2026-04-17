@@ -69,8 +69,9 @@ description: <the rule, restated as a one-sentence description>
 ### Phase 4. Refine and write
 
 - Apply user edits until approval or abort.
-- On approval: write `.claude/rules/<scope>/<rule-name>.md`.
-- If the scope folder does not exist, create it.
+- On approval: **immediately call the Write tool** to create `.claude/rules/<scope>/<rule-name>.md`. Do NOT print the draft again for copy-paste. Do NOT ask the user to save it themselves. Writing the file is the whole point of the command.
+- If the scope folder does not exist, the Write tool will create it.
+- After writing, report the created path in one short sentence.
 - On abort: write nothing.
 
 ## Example
